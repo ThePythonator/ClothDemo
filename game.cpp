@@ -94,7 +94,7 @@ public:
     void constrain_nodes() {
         float dist_x = n1->x - n2->x;
         float dist_y = n1->y - n2->y;
-        float dist = std::sqrtf(dist_x * dist_x + dist_y * dist_y);
+        float dist = std::sqrt(dist_x * dist_x + dist_y * dist_y);
         //printf("%f, %f\n", dist, max_length);
 
         if (dist > max_length) {
@@ -162,7 +162,7 @@ void init() {
 
     float step = 10;
 
-    float normal = std::sqrtf(base_x * base_x + base_y * base_y);
+    //float normal = std::sqrt(base_x * base_x + base_y * base_y);
 
     for (uint16_t i = 0; i < CLOTH_WIDTH; i++) {
         for (uint16_t j = 0; j < CLOTH_HEIGHT; j++) {
