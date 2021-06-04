@@ -1,5 +1,5 @@
-title: game title
-description: game description
+title: Cloth Demo
+description: A demo of Verlet Integration. Could do with some work.
 author: ThePythonator
 splash:
   file: assets/no-image.png
