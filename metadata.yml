@@ -1,0 +1,10 @@
+title: game title
+description: game description
+author: ThePythonator
+splash:
+  file: assets/no-image.png
+icon:
+  file: assets/no-icon.png
+version: v0.0.1
+category: none
+url: https://github.com/ThePythonator/32blit-boilerplate
