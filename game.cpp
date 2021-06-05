@@ -2,15 +2,19 @@
 
 using namespace blit;
 
-const float GRAVITY = 200.0f;
+const float GRAVITY = 400.0f;
 
 const uint16_t WINDOW_WIDTH = 320;
 const uint16_t WINDOW_HEIGHT = 240;
 
-const uint8_t CLOTH_WIDTH = 10;
-const uint8_t CLOTH_HEIGHT = 10;
+const uint8_t CLOTH_WIDTH = 15;
+const uint8_t CLOTH_HEIGHT = 15;
 
-const float SPEED = 80.0f;
+const float SPEED = 100.0f;
+
+float clamp(float n, float mi, float ma) {
+    return std::min(ma, std::max(mi, n));
+}
 
 class Node {
 public:
@@ -155,6 +159,8 @@ float right_y = 0.0f;
 // setup your game here
 //
 void init() {
+    last = now() / 1000.0f;
+
     set_screen_mode(ScreenMode::hires);
 
     float base_x = 20;
@@ -261,6 +267,11 @@ void update(uint32_t time) {
         right_x -= SPEED * dt;
     }
 
+    left_x = clamp(left_x, 0, WINDOW_WIDTH);
+    left_y = clamp(left_y, 0, WINDOW_HEIGHT);
+    right_x = clamp(right_x, 0, WINDOW_WIDTH);
+    right_y = clamp(right_y, 0, WINDOW_HEIGHT);
+
     nodes[0].x = left_x;
     nodes[0].y = left_y;
 
@@ -269,7 +280,7 @@ void update(uint32_t time) {
 
 
 
-    for (uint8_t j = 0; j < 2; j++) {
+    for (uint8_t j = 0; j < 3; j++) {
         // Loop to get a better approximation
         for (uint16_t i = 0; i < s; i++) {
             lines[i].constrain_nodes();
