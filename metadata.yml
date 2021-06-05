@@ -5,6 +5,6 @@ splash:
   file: assets/no-image.png
 icon:
   file: assets/no-icon.png
-version: v0.3.0
+version: v0.4.0
 category: none
 url: https://github.com/ThePythonator/32blit-boilerplate
