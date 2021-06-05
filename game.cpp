@@ -7,8 +7,8 @@ const float GRAVITY = 400.0f;
 const uint16_t WINDOW_WIDTH = 320;
 const uint16_t WINDOW_HEIGHT = 240;
 
-const uint8_t CLOTH_WIDTH = 15;
-const uint8_t CLOTH_HEIGHT = 15;
+const uint8_t CLOTH_WIDTH = 20;
+const uint8_t CLOTH_HEIGHT = 20;
 
 const float SPEED = 100.0f;
 
@@ -104,6 +104,12 @@ public:
         if (dist > max_length) {
             broken = true;
         }
+        else if (dist < 0.001f && dist >= 0.0f) {
+            dist = 0.01f;
+        }
+        else if (dist > -0.001f && dist <= 0.0f) {
+            dist = -0.01f;
+        }
 
         if (!broken) {
             float percentage = (normal_length - dist) / dist;
@@ -159,14 +165,14 @@ float right_y = 0.0f;
 // setup your game here
 //
 void init() {
-    last = now() / 1000.0f;
+    last = now();
 
     set_screen_mode(ScreenMode::hires);
 
     float base_x = 20;
     float base_y = 20;
 
-    float step = 10;
+    float step = 8;
 
     //float normal = std::sqrt(base_x * base_x + base_y * base_y);
 
@@ -178,12 +184,12 @@ void init() {
 
     for (uint16_t i = 0; i < CLOTH_WIDTH; i++) {
         for (uint16_t j = 0; j < CLOTH_HEIGHT - 1; j++) {
-            lines[i * (CLOTH_WIDTH - 1) + j] = Line(&nodes[i * CLOTH_WIDTH + j], &nodes[i * CLOTH_WIDTH + j + 1], step, step * 3.0f, 0.5f);
+            lines[i * (CLOTH_WIDTH - 1) + j] = Line(&nodes[i * CLOTH_WIDTH + j], &nodes[i * CLOTH_WIDTH + j + 1], step, step * 4.0f, 0.5f);
         }
     }
     for (uint16_t i = 0; i < CLOTH_WIDTH - 1; i++) {
         for (uint16_t j = 0; j < CLOTH_HEIGHT; j++) {
-            lines[(CLOTH_WIDTH - 1) * CLOTH_HEIGHT + i * (CLOTH_WIDTH) + j] = Line(&nodes[i * CLOTH_WIDTH + j], &nodes[(i + 1) * CLOTH_WIDTH + j], step, step * 3.0f, 0.5f);
+            lines[(CLOTH_WIDTH - 1) * CLOTH_HEIGHT + i * (CLOTH_WIDTH) + j] = Line(&nodes[i * CLOTH_WIDTH + j], &nodes[(i + 1) * CLOTH_WIDTH + j], step, step * 4.0f, 0.5f);
         }
     }
     /*for (uint16_t i = 0; i < CLOTH_WIDTH - 1; i++) {
@@ -208,7 +214,6 @@ void init() {
 // amount if milliseconds elapsed since the start of your game
 //
 void render(uint32_t time) {
-
     // clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
     screen.clear();
 
